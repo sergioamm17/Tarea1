@@ -9,7 +9,7 @@
 #import "NewWorkFormViewController.h"
 #import "Work.h"
 
-@interface NewWorkFormViewController ()
+@interface NewWorkFormViewController () <UITextFieldDelegate, UITextViewDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *txtClientName;
 @property (weak, nonatomic) IBOutlet UITextField *txtVehicleMade;
 @property (weak, nonatomic) IBOutlet UITextField *txtVehicleYear;
@@ -22,6 +22,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    self.txtClientName.delegate = self;
+    self.txtVehicleMade.delegate = self;
+    self.txtVehicleYear.delegate = self;
+    self.txtDescription.delegate = self;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -55,5 +60,19 @@
     
 }
 
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    return YES;
+}
+
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    
+    if([text isEqualToString:@"\n"]) {
+        [textView resignFirstResponder];
+        return NO;
+    }
+    
+    return YES;
+}
 
 @end
