@@ -59,5 +59,30 @@
     
 }
 
++(NSFetchedResultsController*)getMonthWorksWithDelegate:(id<NSFetchedResultsControllerDelegate>)delegate
+{
+    NSDate *now = [NSDate date];
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSDateComponents *nowComponents = [calendar components:NSEraCalendarUnit | NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit fromDate:now];
+    [nowComponents setDay:1];
+    
+    NSDate *beginningOfCurrentMonth = [calendar dateFromComponents:nowComponents];
+    
+    NSDateComponents *oneMonth = [[NSDateComponents alloc] init];
+    [oneMonth setMonth:1];
+    
+    NSDate *beginningOfNextMonth = [calendar dateByAddingComponents:oneMonth toDate:beginningOfCurrentMonth options:0];
+    
+    NSPredicate *where = [NSPredicate predicateWithFormat:@"workDate >= %@ AND workDate < %@", beginningOfCurrentMonth, beginningOfNextMonth];
+
+    return [Work MR_fetchAllSortedBy:@"clientName"
+                           ascending:YES
+                       withPredicate:where
+                             groupBy:nil
+                            delegate:delegate];
+
+    
+}
+
 
 @end

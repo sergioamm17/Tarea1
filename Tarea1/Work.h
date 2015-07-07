@@ -12,4 +12,5 @@
 
 +(NSFetchedResultsController*)getTodayWorksWithDelegate:(id<NSFetchedResultsControllerDelegate>)delegate;
 
++(NSFetchedResultsController*)getMonthWorksWithDelegate:(id<NSFetchedResultsControllerDelegate>)delegate;
 @end

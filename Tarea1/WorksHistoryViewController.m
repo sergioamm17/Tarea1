@@ -176,7 +176,7 @@ NSString *const CELL_ID = @"WorkTableViewCell";
             [self.tableView reloadData];
             break;
         case 1:
-            self.works = nil;
+            self.works = [Work getMonthWorksWithDelegate:self];
             [self.tableView reloadData];
             break;
         case 2:
