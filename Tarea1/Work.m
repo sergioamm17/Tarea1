@@ -32,9 +32,11 @@
 
 +(NSFetchedResultsController*)getAllWorksWithDelegate:(id<NSFetchedResultsControllerDelegate>)delegate {
     
+    NSPredicate *where = [NSPredicate predicateWithFormat:@"clientName <> ''"];
+    
     return [Work MR_fetchAllSortedBy:@"clientName"
                            ascending:YES
-                       withPredicate:nil
+                       withPredicate:where
                              groupBy:nil
                             delegate:delegate];
     
